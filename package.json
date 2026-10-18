@@ -1,0 +1,26 @@
+{
+  "name": "@finalai/agent-builder-template",
+  "version": "0.1.0",
+  "license": "Apache-2.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "final-agents build src",
+    "typecheck": "tsc --noEmit",
+    "format": "oxfmt --write .",
+    "format:check": "oxfmt --check ."
+  },
+  "devDependencies": {
+    "@types/node": "^26",
+    "oxfmt": "^0.55.0",
+    "tsx": "^4.23.15",
+    "typescript": "^6.0.2"
+  },
+  "engines": {
+    "node": ">=26.10.0"
+  },
+  "packageManager": "pnpm@12.6.0",
+  "dependencies": {
+    "@finalai/agents": "0.1.3"
+  }
+}

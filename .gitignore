@@ -1,0 +1,8 @@
+.final/
+node_modules/
+**/.final/compile/
+.env
+.env.*
+!.env.example
+!.env.template
+.context/

@@ -1,0 +1,13 @@
+allowBuilds:
+  esbuild: true
+
+minimumReleaseAgeExclude:
+  - '@finalai/acp-session@0.1.3'
+  - '@finalai/agent-definition@0.1.3'
+  - '@finalai/agent-protocol@0.1.3'
+  - '@finalai/agent-provider@0.1.3'
+  - '@finalai/agents@0.1.3'
+  - '@finalai/computers@0.1.3'
+  - '@finalai/final-agent-provider@0.1.3'
+  - '@finalai/websocket-gateway-protocol@0.1.3'
+  - '@finalai/websockets@0.1.3'
