@@ -7,7 +7,8 @@ import { computer } from './sandbox.js';
 
 export default defineAgent({
   name: 'Agent Builder',
-  description: 'Builds, configures, validates, and publishes agents from their Git repositories.',
+  description:
+    'Chooses or builds the right agent for a Goal, and builds, configures, validates, and publishes agents from their Git repositories.',
   tools: baseTools({ files: computer, shell: computer }),
   harness: serverlessFinal({
     credentials: credentials.chain({
