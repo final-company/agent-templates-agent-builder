@@ -21,9 +21,9 @@ The build writes generated files to `src/.final/compile/`, which is excluded fro
 
 The template declares shell and file tools on a Final computer with `workspace: 'session'`. Hosting resolves the organization's default computer and the `final` connection. A linked Device is not required. No repository or deployment is hard-coded: the builder resolves the requested target through Final and checks out its source in its session workspace.
 
-Repository access uses the acting person's existing permissions and short-lived Git credentials. Installing this public template grants no access to another person's repositories and contains no credentials. The host must have the Final computer provider and hosted Final connection configured. The sandbox supplies execution; it does not grant repository or publishing permissions.
+Repository access uses the acting person's existing permissions; Git in the session sandbox is already authenticated by Final for registered repositories, whether connected from GitHub or hosted by Final. Installing this public template grants no access to another person's repositories and contains no credentials. The host must have the Final computer provider and hosted Final connection configured. The sandbox supplies execution; it does not grant repository or publishing permissions.
 
-For an existing Final-hosted agent, pushing its configured default branch schedules automatic publication. The builder verifies the resulting published commit with the session’s `get_agent` tool. Explicit publication requires an authorized agent-management tool or SDK/CLI authentication for the selected deployment. The hosted Final MCP connection does not inject a CLI `FINAL_API_KEY`, and a Git token cannot authenticate a publication request. The builder reports missing publication access explicitly and preserves the prepared source work.
+For an existing Final-hosted agent, pushing its configured default branch schedules automatic publication. The builder verifies the resulting published commit with the session’s `get_agent` tool. Explicit publication requires an authorized agent-management tool or SDK/CLI authentication for the selected deployment. The hosted Final MCP connection does not inject a CLI `FINAL_API_KEY`, and Git access cannot authenticate a publication request. The builder reports missing publication access explicitly and preserves the prepared source work.
 
 Creating an agent from this template, publishing a revision, listing a template in the catalog, and choosing Home are separate operations. This repository supplies the template source; it does not register a catalog listing or change anyone's Home.
 
@@ -38,7 +38,7 @@ The agent source lives in `src/`:
 | [`src/sandbox.ts`](src/sandbox.ts) | Final computer with a workspace scoped to the session. |
 | [`src/connections/final.ts`](src/connections/final.ts) | Hosted Final connection and conversation access restrictions. |
 
-The default harness uses the same organization-paid platform credential chain, model, reasoning, and permission mode as the Home template. Runtime permissions still apply to each operation. Repository credentials and publication authentication are separate from model billing.
+The default harness uses the same organization-paid platform credential chain, model, reasoning, and permission mode as the Home template. Runtime permissions still apply to each operation. Repository access and publication authentication are separate from model billing.
 
 After making changes, run `pnpm run typecheck` and `pnpm run build`. Use `pnpm run format` to format the source or `pnpm run format:check` to check formatting. Commit the root lockfile when changing dependencies. Do not commit generated build output, credentials, or local environment files.
 
