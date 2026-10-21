@@ -6,7 +6,7 @@ Built with the `@finalai/agents` TypeScript SDK. The package layout and hosted F
 
 ## Getting started
 
-Requires Node.js 26.10 or newer and pnpm 12.6.0. From the repository root:
+Requires Node.js 26.10 or newer and pnpm 12.14.0. From the repository root:
 
 ```sh
 pnpm install
