@@ -21,6 +21,6 @@
   },
   "packageManager": "pnpm@12.14.0",
   "dependencies": {
-    "@finalai/agents": "0.2.1"
+    "@finalai/agents": "0.2.2"
   }
 }
