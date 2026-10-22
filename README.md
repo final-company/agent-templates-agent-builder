@@ -1,6 +1,6 @@
 # Final Agent Builder template
 
-A public source template for an agent that builds, configures, repairs, and publishes Final agents. Agent Builder works directly in agent repositories, preserves downstream customizations when merging upstream changes, and reports the source commit, checks, and publication result. It can take an assigned Goal from Home or a direct request in its own chat.
+A public source template for Final's bootstrapping agent. Given the person's context, Agent Builder reuses an existing agent, forks and customizes a suitable foundation, or builds an agent from scratch. It also configures, repairs, and updates agents, preserves downstream customizations when merging upstream changes, and reports the source commit, checks, and publication result.
 
 Built with the `@finalai/agents` TypeScript SDK. The package layout and hosted Final connection follow [Final Home](https://github.com/final-company/agent-templates-home).
 
@@ -21,6 +21,8 @@ The build writes generated files to `src/.final/compile/`, which is excluded fro
 
 The template declares shell and file tools on a Final computer with `workspace: 'session'`. Hosting resolves the organization's default computer and the `final` connection. A linked Device is not required. No repository or deployment is hard-coded: the builder resolves the requested target through Final and checks out its source in its session workspace.
 
+The Final connection loads the tool guide, agent selection and chat-change tools, and `read_original_message` for retrieving referenced source messages by their exact chat and message IDs. Other permitted tools remain discoverable through the gateway. Broad conversation listing, reading, posting, and separate agent session creation and reading are disabled.
+
 Repository access uses the acting person's existing permissions; Git in the session sandbox is already authenticated by Final for registered repositories, whether connected from GitHub or hosted by Final. Installing this public template grants no access to another person's repositories and contains no credentials. The host must have the Final computer provider and hosted Final connection configured. The sandbox supplies execution; it does not grant repository or publishing permissions.
 
 For an existing Final-hosted agent, pushing its configured default branch schedules automatic publication. The builder verifies the resulting published commit with the session’s `get_agent` tool. Explicit publication requires an authorized agent-management tool or SDK/CLI authentication for the selected deployment. The hosted Final MCP connection does not inject a CLI `FINAL_API_KEY`, and Git access cannot authenticate a publication request. The builder reports missing publication access explicitly and preserves the prepared source work.
@@ -34,7 +36,7 @@ The agent source lives in `src/`:
 | File | Purpose |
 | --- | --- |
 | [`src/agent.ts`](src/agent.ts) | Agent identity, model, credentials, runtime settings, and shell/file capabilities. |
-| [`src/instructions.md`](src/instructions.md) | Goal handling, repository workflows, validation, publication, and review behavior. |
+| [`src/instructions.md`](src/instructions.md) | Agent selection, authoring, forks, validation, publication, and handoff behavior. |
 | [`src/sandbox.ts`](src/sandbox.ts) | Final computer with a workspace scoped to the session. |
 | [`src/connections/final.ts`](src/connections/final.ts) | Hosted Final connection and conversation access restrictions. |
 
