@@ -49,6 +49,7 @@ After making changes, run `pnpm run typecheck` and `pnpm run build`. Use `pnpm r
 Compilation validates source configuration. Before relying on an installed builder, verify these behaviors in the target deployment:
 
 - A new session exposes shell and file tools on its Final computer without requiring a Device.
+- A Goal that one published agent clearly fits is handed to that agent without a choice card; the card appears only when no agent fits, several fit, or a stated preference is unmet.
 - A request to prepare a change for review produces a concrete diff and check results before any push or publication.
 - An upstream sync preserves downstream commits and customizations, uses a normal push, and reports both source and resulting commit SHAs.
 - An already synchronized and published agent produces an accurate no-change result without a new revision.
