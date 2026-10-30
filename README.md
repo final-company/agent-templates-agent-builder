@@ -27,7 +27,7 @@ Repository access uses the acting person's existing permissions; Git in the sess
 
 For an existing Final-hosted agent, pushing its configured default branch schedules automatic publication. The builder verifies the resulting published commit with the session’s `get_agent` tool. Explicit publication requires an authorized agent-management tool or SDK/CLI authentication for the selected deployment. The hosted Final MCP connection does not inject a CLI `FINAL_API_KEY`, and Git access cannot authenticate a publication request. The builder reports missing publication access explicitly and preserves the prepared source work.
 
-Agent selection is an implementation decision: existing assistants can take the task without a selection approval. When the builder judges that a new agent is needed, it requests one concrete build approval covering repository creation, customization, validation, publication, and use for the task. Initialization verifies the source transfer before customization; completion publishes the validated final commit. Retries reuse that authorization and operation. Listing a template in the catalog and changing Home remain separate decisions. This repository supplies the template source; it does not register a catalog listing or change anyone's Home.
+Agent selection is an implementation decision: existing agents can take the task without a selection approval. When the builder judges that a new agent is needed, it requests one concrete build approval covering repository creation, customization, validation, publication, and use for the task. Initialization verifies the source transfer before customization; completion publishes the validated final commit. Retries reuse that authorization and operation. Listing a template in the catalog and changing Home remain separate decisions. This repository supplies the template source; it does not register a catalog listing or change anyone's Home.
 
 ## Customizing the agent
 
@@ -50,7 +50,7 @@ Compilation validates source configuration. Before relying on an installed build
 
 - A new session exposes shell and file tools on its Final computer without requiring a Device.
 - A minimal scaffold template and the combined preparation, initialization, and final-commit publication operations are available in the target deployment.
-- Work that an existing assistant can cover proceeds without an agent-selection or build approval. Agent Builder answers straightforward agent-configuration questions directly and leaves underlying task work to the chosen agent. The builder chooses among suitable agents while respecting stated constraints.
+- Work that an existing agent can cover proceeds without an agent-selection or build approval. Agent Builder answers straightforward agent-configuration questions directly and leaves underlying task work to the chosen agent. The builder chooses among suitable agents while respecting stated constraints.
 - A new agent is proposed when the builder judges it necessary or the person explicitly requests one; one concrete build approval covers creation through publication and use. Decline creates nothing.
 - Template and variant builds initialize the source transfer, customize and validate, then publish the final customized commit without an intermediate foundation publication or a second confirmation.
 - An interrupted approved build resumes the same operation and authorization; publication retries preserve the pinned final commit. A material scope or access change requires a revised approval.
