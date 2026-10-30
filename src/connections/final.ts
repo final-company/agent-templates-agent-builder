@@ -14,7 +14,7 @@ export default defineFinalConnection({
       'get_chat_configuration',
       'propose_chat_change',
     ],
-    // Read referenced messages without browsing or posting across chats.
+    // Allow exact-message reads; block selection cards and broad cross-chat control.
     deny: [
       'propose_chat_agent_options',
       'list_conversations',
