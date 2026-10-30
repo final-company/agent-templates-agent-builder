@@ -16,6 +16,7 @@ export default defineFinalConnection({
     ],
     // Read referenced messages without browsing or posting across chats.
     deny: [
+      'propose_chat_agent_options',
       'list_conversations',
       'read_conversation',
       'post_to_conversation',
