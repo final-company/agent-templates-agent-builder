@@ -27,7 +27,7 @@ Repository access uses the acting person's existing permissions; Git in the sess
 
 For an existing Final-hosted agent, pushing its configured default branch schedules automatic publication. The builder verifies the resulting published commit with the session’s `get_agent` tool. Explicit publication requires an authorized agent-management tool or SDK/CLI authentication for the selected deployment. The hosted Final MCP connection does not inject a CLI `FINAL_API_KEY`, and Git access cannot authenticate a publication request. The builder reports missing publication access explicitly and preserves the prepared source work.
 
-Creating an agent from this template, publishing a revision, listing a template in the catalog, and choosing Home are separate operations. This repository supplies the template source; it does not register a catalog listing or change anyone's Home.
+Agent selection is an implementation decision: existing assistants can take the task without a selection approval. When the builder judges that a new agent is needed, it requests one concrete build approval covering repository creation, customization, validation, publication, and use for the task. Initialization verifies the source transfer before customization; completion publishes the validated final commit. Retries reuse that authorization and operation. Listing a template in the catalog and changing Home remain separate decisions. This flow requires the platform lifecycle changes in the companion black-pearl PR. This repository supplies the template source; it does not register a catalog listing or change anyone's Home.
 
 ## Customizing the agent
 
