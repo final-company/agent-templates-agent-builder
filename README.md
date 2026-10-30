@@ -1,6 +1,6 @@
 # Final Agent Builder template
 
-A public source template for Final's bootstrapping agent. Given the person's context, Agent Builder reuses an existing agent, forks and customizes a suitable foundation, or builds an agent from scratch. It also configures, repairs, and updates agents, preserves downstream customizations when merging upstream changes, and reports the source commit, checks, and publication result.
+A public source template for Final's bootstrapping agent. Given the person's context, Agent Builder reuses an existing agent, forks and customizes a suitable foundation, or authors new agent behavior from scratch on minimal platform scaffolding. It also configures, repairs, and updates agents, preserves downstream customizations when merging upstream changes, and reports the source commit, checks, and publication result.
 
 Built with the `@finalai/agents` TypeScript SDK. The package layout and hosted Final connection follow [Final Home](https://github.com/final-company/agent-templates-home).
 
@@ -49,8 +49,8 @@ After making changes, run `pnpm run typecheck` and `pnpm run build`. Use `pnpm r
 Compilation validates source configuration. Before relying on an installed builder, verify these behaviors in the target deployment:
 
 - A new session exposes shell and file tools on its Final computer without requiring a Device.
-- Work that an existing assistant can cover proceeds without an agent-selection or build approval. Agent Builder may handle a small one-off task directly, but explicit requests to find or build an agent still deliver that agent. The builder chooses among suitable agents while respecting stated constraints.
-- A new agent is proposed only when the builder judges it necessary; one concrete build approval covers creation through publication and use. Decline creates nothing.
+- Work that an existing assistant can cover proceeds without an agent-selection or build approval. Agent Builder answers straightforward agent-configuration questions directly and leaves underlying task work to the chosen agent. The builder chooses among suitable agents while respecting stated constraints.
+- A new agent is proposed when the builder judges it necessary or the person explicitly requests one; one concrete build approval covers creation through publication and use. Decline creates nothing.
 - Template and variant builds initialize the source transfer, customize and validate, then publish the final customized commit without an intermediate foundation publication or a second confirmation.
 - An interrupted approved build resumes the same operation and authorization; publication retries preserve the pinned final commit. A material scope or access change requires a revised approval.
 - A request to prepare a change for review produces a concrete diff and check results before any push or publication.
