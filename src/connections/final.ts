@@ -12,7 +12,6 @@ export default defineFinalConnection({
       'list_agents',
       'get_agent',
       'get_chat_configuration',
-      'propose_chat_agent_options',
       'propose_chat_change',
     ],
     // Read referenced messages without browsing or posting across chats.
