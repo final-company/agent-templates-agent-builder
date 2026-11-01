@@ -21,7 +21,7 @@ The build writes generated files to `src/.final/compile/`, which is excluded fro
 
 The template declares shell and file tools on a Final computer with `workspace: 'session'`. Hosting resolves the organization's default computer and the `final` connection. A linked Device is not required. No repository or deployment is hard-coded: the builder resolves the requested target through Final and checks out its source in its session workspace.
 
-The Final connection loads the tool guide, agent discovery and chat-change tools, and `read_original_message` for retrieving referenced source messages by their exact chat and message IDs. Other permitted tools remain discoverable through the gateway. Broad conversation listing, reading, posting, and separate agent session creation and reading are disabled.
+The Final connection loads the tool guide, agent discovery and chat-change tools, `get_goal` and `update_goal` for a Goal the builder is assigned, and `read_original_message` for retrieving referenced source messages by their exact chat and message IDs. Other permitted tools remain discoverable through the gateway. Broad conversation listing, reading, posting, and separate agent session creation and reading are disabled.
 
 Repository access uses the acting person's existing permissions; Git in the session sandbox is already authenticated by Final for registered repositories, whether connected from GitHub or hosted by Final. Installing this public template grants no access to another person's repositories and contains no credentials. The host must have the Final computer provider and hosted Final connection configured. The sandbox supplies execution; it does not grant repository or publishing permissions.
 
