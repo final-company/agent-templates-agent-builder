@@ -15,7 +15,7 @@ export default defineAgent({
       payer: 'organization',
       tryInOrder: [credentials.platform()],
     }),
-    model: 'deepseek-v4.1-flash',
+    model: 'deepseek-v4.1-flash-1017',
     reasoning: 'high',
     permissionMode: 'auto',
   }),
