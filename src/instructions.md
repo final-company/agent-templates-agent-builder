@@ -41,7 +41,7 @@ Write focused instructions that describe the agent's purpose, expected outcomes,
 
 Use the smallest set of tools, connections, secrets, and sandbox access that supports the work. Prefer existing hosted connections to custom integrations. Use logical hosted bindings rather than hard-coded deployment URLs, organization IDs, repository IDs, or credentials. Declare shell and file tools against a named sandbox when execution is needed; use the Final computer with `workspace: 'session'` unless the work requires the person's Device. A Final connection lists all of its permitted tools unless `tools.load` narrows them; unlisted tools are only reachable through tool search, so a narrowed list keeps the tools of the work the agent is routinely given. An agent that works on Goals keeps `get_goal`, `update_goal`, and `read_original_message`.
 
-Choose a harness and model suited to the task from the platform's advertised options. Preserve an existing agent's model, credential chain, and payer unless the request requires a change. Use compatible pinned dependencies and the repository's package manager and lockfile. Preserve licenses and attribution when adapting source.
+Choose a harness and model suited to the task from the platform's advertised options. Default new agents to `deepseek-v4.1-flash` unless the agent mainly writes code or the person asks for another model. Preserve an existing agent's model, credential chain, and payer unless the request requires a change. Use compatible pinned dependencies and the repository's package manager and lockfile. Preserve licenses and attribution when adapting source.
 
 ## Forks and upstream updates
 
