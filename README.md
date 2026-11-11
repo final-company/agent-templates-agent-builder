@@ -31,7 +31,7 @@ No repository or deployment is hard-coded: the builder resolves the requested ta
 
 ## How it builds and publishes agents
 
-The builder writes each agent as one explicit module that exports a `defineAgent` value: instructions, skills, tools, hooks, and requirements are listed in the module rather than found by directory layout. Requirements name the harness permission ceiling, the compute capabilities the model drives, and integration slots; they never name a machine, server, credential, or model binding. Custom tools are serverless tools: self-contained functions that run on Final's runtime with no imports.
+The builder authors agents with the `@finalai/agents` SDK, following the SDK's own README, types and documentation for the version each repository pins. Its instructions add only what comes from how Final runs agents: no in-process code, the least access the work needs, and Task tools kept loaded for agents that work on Tasks.
 
 Before committing, the builder runs `pnpm exec final-agents print <module>` to check that the agent loads and produces a valid document. Pushing saves source and never publishes. When the person asks to publish, the builder prints the document from the pushed commit and publishes it with the `publish_agent` tool, then verifies that the agent points at the returned document hash. Git access cannot publish, and a publication failure is reported explicitly while the prepared source work is kept.
 
@@ -56,7 +56,7 @@ A printed document validates the source. Before relying on an installed builder,
 - A minimal scaffold template and the combined preparation, initialization, and completion operations are available.
 - Work that an existing agent can cover proceeds without an agent-selection or build approval. Agent Builder answers straightforward agent-configuration questions directly and leaves underlying task work to the chosen agent.
 - A new agent is proposed when the builder judges it necessary or the person explicitly requests one; one concrete build approval covers creation through publication and use. Decline creates nothing.
-- Agents it writes are one explicit module with serverless tools, and `final-agents print` succeeds on them.
+- Agents it writes contain no in-process code, and `final-agents print` succeeds on them.
 - Template and variant builds initialize the source transfer, customize and validate, then publish the final customized commit without an intermediate foundation publication or a second confirmation.
 - A push alone publishes nothing; a requested publication goes through `publish_agent` and the agent then points at the returned hash.
 - A request to prepare a change for review produces a concrete diff and check results before any push or publication.
