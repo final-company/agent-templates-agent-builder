@@ -13,7 +13,7 @@ export const agent = defineAgent({
     harness: {
       permissionMode: 'auto',
       recommended: {
-        harness: FinalHarness.ServerlessFinal,
+        harness: FinalHarness.Final,
         model: 'deepseek-v4.1-flash-1017',
         reasoning: 'high',
       },
