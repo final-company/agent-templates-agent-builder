@@ -2,7 +2,12 @@ allowBuilds:
   esbuild: true
 
 minimumReleaseAgeExclude:
-  - '@finalai/agent-definition@0.1.6'
-  - '@finalai/agent-provider@0.1.7'
-  - '@finalai/agents@0.2.2'
-  - '@finalai/final-agent-provider@0.2.2'
+  - '@finalai/acp-session@0.6.0'
+  - '@finalai/agent-definition@0.13.0'
+  - '@finalai/agent-protocol@0.13.0'
+  - '@finalai/agent-provider@0.14.0'
+  - '@finalai/agents@0.16.1'
+  - '@finalai/computers@0.3.2'
+  - '@finalai/final-agent-provider@0.15.1'
+  - '@finalai/websocket-gateway-protocol@0.1.6'
+  - '@finalai/websockets@0.1.8'

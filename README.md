@@ -1,8 +1,8 @@
 # Final Agent Builder template
 
-A public source template for Final's bootstrapping agent. Given the person's context, Agent Builder reuses an existing agent, forks and customizes a suitable foundation, or authors new agent behavior from scratch on minimal platform scaffolding. It also configures, repairs, and updates agents, preserves downstream customizations when merging upstream changes, and reports the source commit, checks, and publication result.
+A public source template for Final's bootstrapping agent. Given the person's context, Agent Builder reuses an existing agent, forks and customizes a suitable foundation, or authors new agent behavior from scratch on minimal scaffolding. It also configures, repairs, and updates agents, preserves downstream customizations when merging upstream changes, and reports the source commit, checks, and publication result.
 
-Built with the `@finalai/agents` TypeScript SDK. The package layout and hosted Final connection follow [Final Home](https://github.com/final-company/agent-templates-home).
+Built with the `@finalai/agents` TypeScript SDK. The package layout follows [Final Home](https://github.com/final-company/agent-templates-home).
 
 ## Getting started
 
@@ -12,22 +12,30 @@ Requires Node.js 26.10 or newer and pnpm 12.14.0. From the repository root:
 pnpm install
 pnpm run format:check
 pnpm run typecheck
-pnpm run build
+pnpm run print
 ```
 
-The build writes generated files to `src/.final/compile/`, which is excluded from version control. Local compilation does not require an API key. Set `FINAL_API_KEY` to also check compatibility with the installed Final harness; set `FINAL_API_HOST` when targeting a deployment other than the CLI default. Supply credentials through your secure environment, never committed source.
+`pnpm run print` loads `src/agent.ts` and writes the agent's document as JSON. It makes no network calls and needs no API key. Nothing is compiled or built: the document is the agent.
 
-## Runtime
+## What the agent requires
 
-The template declares shell and file tools on a Final computer with `workspace: 'session'`. Hosting resolves the organization's default computer and the `final` connection. A linked Device is not required. No repository or deployment is hard-coded: the builder resolves the requested target through Final and checks out its source in its session workspace.
+The agent states what it needs; whoever starts it provides the implementations.
 
-The Final connection loads the tool guide, agent discovery and chat-change tools, `get_task` for reading a Task the builder is assigned, and `read_original_message` for retrieving referenced source messages by their exact chat and message IDs. Other permitted tools remain discoverable through the gateway. Broad conversation listing, reading, posting, separate agent session creation and reading, and creating, updating, delegating, or withdrawing Tasks are disabled.
+| Requirement | Meaning |
+| --- | --- |
+| Harness | Any harness that allows `auto` permissions. It recommends the Final harness with `deepseek-v4.1-flash-1017` at high reasoning, but the caller chooses. |
+| Compute | `files` with write access and `shell`, on one machine, for checking out, editing, and validating agent source. |
+| `final` integration | Final's tools for the project: agents, chats, Tasks, and publishing. It loads the tool guide, agent discovery, chat-change tools, `get_task` for reading a Task the builder is assigned, `read_original_message` for retrieving referenced messages by their exact chat and message IDs, and `publish_agent`. Other permitted tools remain discoverable through tool search. Broad conversation listing, reading, and posting, separate agent sessions, and creating, updating, delegating, or withdrawing Tasks are denied. |
 
-Repository access uses the acting person's existing permissions; Git in the session sandbox is already authenticated by Final for registered repositories, whether connected from GitHub or hosted by Final. Installing this public template grants no access to another person's repositories and contains no credentials. The host must have the Final computer provider and hosted Final connection configured. The sandbox supplies execution; it does not grant repository or publishing permissions.
+No repository or deployment is hard-coded: the builder resolves the requested target through Final and checks out its source on the machine it is given. Repository access uses the acting person's existing permissions. Installing this public template grants no access to another person's repositories and contains no credentials.
 
-For an existing Final-hosted agent, pushing its configured default branch schedules automatic publication. The builder verifies the resulting published commit with the session’s `get_agent` tool. Explicit publication requires an authorized agent-management tool or SDK/CLI authentication for the selected deployment. The hosted Final MCP connection does not inject a CLI `FINAL_API_KEY`, and Git access cannot authenticate a publication request. The builder reports missing publication access explicitly and preserves the prepared source work.
+## How it builds and publishes agents
 
-Agent selection is an implementation decision: existing agents can take the task without a selection approval. When the builder judges that a new agent is needed, it requests one concrete build approval covering repository creation, customization, validation, publication, and use for the task. Initialization verifies the source transfer before customization; completion publishes the validated final commit. Retries reuse that authorization and operation. Listing a template in the catalog and changing Home remain separate decisions. This repository supplies the template source; it does not register a catalog listing or change anyone's Home.
+The builder authors agents with the `@finalai/agents` SDK, following the SDK's own README, types and documentation for the version each repository pins. Its instructions add only what comes from how Final runs agents: no in-process code, the least access the work needs, and Task tools kept loaded for agents that work on Tasks.
+
+Before committing, the builder runs `pnpm exec final-agents print <module>` to check that the agent loads and produces a valid document. Pushing saves source and never publishes. When the person asks to publish, the builder prints the document from the pushed commit and publishes it with the `publish_agent` tool, then verifies that the agent points at the returned document hash. Git access cannot publish, and a publication failure is reported explicitly while the prepared source work is kept.
+
+Agent selection is an implementation decision: existing agents can take the task without a selection approval. When the builder judges that a new agent is needed, it requests one concrete build approval covering repository creation, customization, validation, publication, and use for the task. Retries reuse that authorization and operation. Listing a template in the catalog and changing Home remain separate decisions. This repository supplies the template source; it does not register a catalog listing or change anyone's Home.
 
 ## Customizing the agent
 
@@ -35,30 +43,25 @@ The agent source lives in `src/`:
 
 | File | Purpose |
 | --- | --- |
-| [`src/agent.ts`](src/agent.ts) | Agent identity, model, credentials, runtime settings, and shell/file capabilities. |
+| [`src/agent.ts`](src/agent.ts) | Agent identity, requirements, and tool restrictions. |
 | [`src/instructions.md`](src/instructions.md) | Agent selection, authoring, forks, validation, publication, and handoff behavior. |
-| [`src/sandbox.ts`](src/sandbox.ts) | Final computer with a workspace scoped to the session. |
-| [`src/connections/final.ts`](src/connections/final.ts) | Hosted Final connection and conversation access restrictions. |
 
-The default harness uses the same organization-paid platform credential chain, model, reasoning, and permission mode as the Home template. Runtime permissions still apply to each operation. Repository access and publication authentication are separate from model billing.
+After making changes, run `pnpm run typecheck` and `pnpm run print`. Use `pnpm run format` to format the source or `pnpm run format:check` to check formatting. Commit the root lockfile when changing dependencies. Do not commit credentials or local environment files.
 
-After making changes, run `pnpm run typecheck` and `pnpm run build`. Use `pnpm run format` to format the source or `pnpm run format:check` to check formatting. Commit the root lockfile when changing dependencies. Do not commit generated build output, credentials, or local environment files.
+## Reviewing an installation
 
-## Reviewing a hosted installation
+A printed document validates the source. Before relying on an installed builder, verify these behaviors:
 
-Compilation validates source configuration. Before relying on an installed builder, verify these behaviors in the target deployment:
-
-- A new session exposes shell and file tools on its Final computer without requiring a Device.
-- A minimal scaffold template and the combined preparation, initialization, and final-commit publication operations are available in the target deployment.
-- Work that an existing agent can cover proceeds without an agent-selection or build approval. Agent Builder answers straightforward agent-configuration questions directly and leaves underlying task work to the chosen agent. The builder chooses among suitable agents while respecting stated constraints.
+- A new session has shell and file tools on the machine provided for it.
+- A minimal scaffold template and the combined preparation, initialization, and completion operations are available.
+- Work that an existing agent can cover proceeds without an agent-selection or build approval. Agent Builder answers straightforward agent-configuration questions directly and leaves underlying task work to the chosen agent.
 - A new agent is proposed when the builder judges it necessary or the person explicitly requests one; one concrete build approval covers creation through publication and use. Decline creates nothing.
+- Agents it writes contain no in-process code, and `final-agents print` succeeds on them.
 - Template and variant builds initialize the source transfer, customize and validate, then publish the final customized commit without an intermediate foundation publication or a second confirmation.
-- An interrupted approved build resumes the same operation and authorization; publication retries preserve the pinned final commit. A material scope or access change requires a revised approval.
+- A push alone publishes nothing; a requested publication goes through `publish_agent` and the agent then points at the returned hash.
 - A request to prepare a change for review produces a concrete diff and check results before any push or publication.
 - An upstream sync preserves downstream commits and customizations, uses a normal push, and reports both source and resulting commit SHAs.
-- An already synchronized and published agent produces an accurate no-change result without a new revision.
-- Missing repository or publication access produces a specific blocker; a successful Git operation is never reported as successful publication.
-- An authorized publication returns a revision for the verified commit, and an isolated startup check verifies the affected capabilities.
+- Missing repository or publication access produces a specific blocker; a successful Git operation is never reported as a successful publication.
 
 ## License
 

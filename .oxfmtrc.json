@@ -5,5 +5,5 @@
   "printWidth": 100,
   "tabWidth": 2,
   "sortPackageJson": false,
-  "ignorePatterns": ["node_modules/", "**/.final/compile/", ".context/", "*.md"]
+  "ignorePatterns": ["node_modules/", ".context/", "*.md"]
 }
