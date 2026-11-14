@@ -8,6 +8,7 @@ export const agent = defineAgent({
   name: 'Agent Builder',
   description:
     'Bootstraps Final agents by reusing, forking, or building from scratch, and configures, validates, and publishes them from their Git repositories.',
+  avatar: { url: 'https://images.final.ai/images/aa7c9625-a6d3-4cb6-94bc-cd24b14f99ba.png' },
   instructions: markdown('./instructions.md', { from: import.meta.url }),
   require: {
     harness: {
